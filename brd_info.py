@@ -1,11 +1,9 @@
 #!/usr/bin/python3
-
-
-# echo "2-0050" | sudo tee /sys/bus/i2c/drivers/at24/unbind
-# ./brd_info.py
-# echo "2-0050" | sudo tee /sys/bus/i2c/drivers/at24/bind
-
 import smbus;
+import subprocess;
+
+# Runs the command completely silently
+subprocess.run('echo "2-0050" | sudo tee /sys/bus/i2c/drivers/at24/unbind', shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL);
 
 bus = smbus.SMBus(2);    # 0 = /dev/i2c-0 (port I2C0), 1 = /dev/i2c-1
 
@@ -92,3 +90,6 @@ if (block[17] == 1):
   print ("Industrial grade (-45+85) degrees Celsius");
 else:
   print ("Commercial grade (0-70) degrees Celsius");
+
+# Runs the command completely silently
+subprocess.run('echo "2-0050" | sudo tee /sys/bus/i2c/drivers/at24/bind', shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL);
